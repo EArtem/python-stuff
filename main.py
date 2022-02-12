@@ -1,5 +1,7 @@
 from turtle import Screen
 from paddles import Paddle
+RIGHT_PADDLE_POSITION = (380, 0)
+LEFT_PADDLE_POSITION = (-390, 0)
 
 screen = Screen()
 screen.title('PinPong')
@@ -7,10 +9,8 @@ screen.setup(800, 600)
 screen.bgcolor('black')
 screen.tracer(0)
 
-right_paddle = Paddle()
-right_paddle.move_paddle_to_start_position('right')
-left_paddle = Paddle()
-left_paddle.move_paddle_to_start_position('left')
+right_paddle = Paddle(RIGHT_PADDLE_POSITION)
+left_paddle = Paddle(LEFT_PADDLE_POSITION)
 
 screen.listen()
 screen.onkey(right_paddle.move_up, 'Up')
