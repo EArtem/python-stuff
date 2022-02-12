@@ -9,8 +9,14 @@ screen.bgcolor('black')
 
 right_paddle = Paddle()
 right_paddle.move_paddle_to_start_position('right')
-right_paddle = Paddle()
-right_paddle.move_paddle_to_start_position('left')
+left_paddle = Paddle()
+left_paddle.move_paddle_to_start_position('left')
+
+screen.listen()
+screen.onkey(right_paddle.move_up, 'Up')
+screen.onkey(left_paddle.move_up, 'a')
+screen.onkey(right_paddle.move_down, 'Down')
+screen.onkey(left_paddle.move_down, 'z')
 
 screen.exitonclick()
 
