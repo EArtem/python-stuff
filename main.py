@@ -1,5 +1,6 @@
 from turtle import Screen
 from paddles import Paddle
+from ball import Ball
 RIGHT_PADDLE_POSITION = (380, 0)
 LEFT_PADDLE_POSITION = (-390, 0)
 
@@ -11,6 +12,7 @@ screen.tracer(0)
 
 right_paddle = Paddle(RIGHT_PADDLE_POSITION)
 left_paddle = Paddle(LEFT_PADDLE_POSITION)
+ball = Ball()
 
 screen.listen()
 screen.onkey(right_paddle.move_up, 'Up')
@@ -21,6 +23,9 @@ screen.onkey(left_paddle.move_down, 'z')
 game_is_on = True
 while game_is_on:
     screen.update()
+    ball.move()
+    if ball.ycor() > 280 or ball.ycor() < -280:
+        ball.bounce()
 
 screen.exitonclick()
 
