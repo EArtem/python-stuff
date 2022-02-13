@@ -29,7 +29,9 @@ while game_is_on:
     if ball.xcor() >= (RIGHT_PADDLE_POSITION[0] - 20) and ball.distance(right_paddle.position()) < 50\
             or ball.xcor() <= (LEFT_PADDLE_POSITION[0] + 20) and ball.distance(left_paddle.position()) < 50:
         ball.bounce_x()
-    if ball.xcor() > (RIGHT_PADDLE_POSITION[0] + 20) or ball.xcor() < (LEFT_PADDLE_POSITION[0] - 20):
+    if ball.xcor() > (RIGHT_PADDLE_POSITION[0] + 20):
+        ball.reset_ball()
+    if ball.xcor() < (LEFT_PADDLE_POSITION[0] - 20):
         ball.reset_ball()
 
 
