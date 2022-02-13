@@ -22,5 +22,8 @@ class Ball(Turtle):
         time.sleep(0.1)
         self.goto(new_x, new_y)
 
-    def bounce(self):
+    def bounce_y(self):
         self.y_move *= -1
+
+    def bounce_x(self):
+        self.x_move *= -1
