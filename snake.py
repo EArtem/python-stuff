@@ -13,7 +13,7 @@ class Snake:
         self.head = self.snake[0]
 
     def create_snake(self):
-        for _ in range(0, SNAKE_SIZE - 1):
+        for _ in range(0, SNAKE_SIZE + 1):
             snake_element = Turtle('square')
             snake_element.color('white')
             snake_element.penup()
@@ -31,6 +31,13 @@ class Snake:
         new_segment.penup()
         new_segment.goto(position)
         self.snake.append(new_segment)
+
+    def reset(self):
+        for segment in self.snake:
+            segment.goto(1000, 1000)
+        self.snake.clear()
+        self.create_snake()
+        self.head = self.snake[0]
 
     def extend(self):
         self.add_segment(self.snake[-1].position())
