@@ -1,13 +1,11 @@
 import pandas as pd
 
-list1 = pd.read_csv('file1.txt', header=None).get(0).to_list()
 
-list2 = pd.read_csv('file2.txt', header=None).get(0).to_list()
-print(list1, list2)
-result = [num for num in list1 if num in list2]
+data = pd.read_csv('nato_phonetic_alphabet.csv')
+data_dict = {row.letter: row.code for (index, row) in data.iterrows()}
+word = input('Enter a word:\n').upper()
+nato_alphabet = [data_dict[letter] for letter in word]
+print(nato_alphabet)
 
-print(result)
 
-same_numbers = list(set(list1) & set(list2))
 
-print(same_numbers)
