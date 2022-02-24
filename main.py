@@ -2,20 +2,29 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import string
-
-
+import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+
+
 def generate_password():
     alphabet = string.ascii_letters + string.digits + string.punctuation
     secret = StringVar(value=''.join(random.choice(alphabet) for i in range(18)))
     entry_password.config(textvariable=secret)
+
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
 
 def add_password():
+
     resource = entry_website.get()
     user_id = entry_username.get()
     secret = entry_password.get()
+    new_data = {
+        website.get(): {
+            'email': user_id,
+            'password': secret
+        }
+    }
 
     if len(resource) == 0 or len(secret) == 0 or len(user_id) == 0:
         messagebox.showinfo(message='Please fill all fields')
@@ -24,8 +33,17 @@ def add_password():
                                     message=f'Those are entered: \nEmail: {resource}\nPassword: {secret}\n is it OK'
                                             f' to save?')
         if is_ok:
-            with open('this_is_not_a_password.txt', 'a') as f:
-                f.write(f'{resource}  |  {user_id}  |  {secret}\n')
+            try:
+                with open('this_is_not_a_password.json', 'r') as f:
+                    data = json.load(f)
+            except FileNotFoundError:
+                with open('this_is_not_a_password.json', 'w') as f:
+                    json.dump(new_data, f, indent=4)
+            else:
+                data.update(new_data)
+
+                with open('this_is_not_a_password.json', 'w') as f:
+                    json.dump(data, f, indent=4)
 
             entry_password.clipboard_clear()
             entry_password.clipboard_append(string=entry_password.get())
