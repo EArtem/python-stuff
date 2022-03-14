@@ -30,7 +30,7 @@ def add_password():
         messagebox.showinfo(message='Please fill all fields')
     else:
         is_ok = messagebox.askyesno(title=resource,
-                                    message=f'Those are entered: \nEmail: {resource}\nPassword: {secret}\n is it OK'
+                                    message=f'Those are entered: \nEmail: {user_id}\nPassword: {secret}\n is it OK'
                                             f' to save?')
         if is_ok:
             try:
@@ -51,6 +51,18 @@ def add_password():
             entry_website.delete(0, END)
             entry_password.delete(0, END)
             entry_website.focus()
+
+
+def search_password():
+    try:
+        with open('this_is_not_a_password.json', 'r') as f:
+            data = json.load(f)
+            if website.get().casefold() in data:
+                messagebox.showinfo(message=f'{website.get()}:\n{data[website.get().casefold()]}')
+            else:
+                messagebox.showinfo(message=f'No password for {website.get()} found')
+    except FileNotFoundError:
+        messagebox.showinfo(message='There is no any saved password')
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -74,8 +86,8 @@ label_password = Label(text='Password:')
 label_password.grid(column=0, row=3)
 
 website = StringVar()
-entry_website = Entry(width=39, textvariable=website)
-entry_website.grid(column=1, row=1, columnspan=2)
+entry_website = Entry(width=21, textvariable=website)
+entry_website.grid(column=1, row=1)
 entry_website.focus()
 
 username = StringVar()
@@ -87,6 +99,8 @@ password = StringVar()
 entry_password = Entry(width=21, textvariable=password)
 entry_password.grid(column=1, row=3)
 
+button_search = Button(text='Search', width='13', command=search_password)
+button_search.grid(column=2, row=1)
 
 button_generate_password = Button(text='Generate Password', command=generate_password)
 button_generate_password.grid(column=2, row=3)
