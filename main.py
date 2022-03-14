@@ -58,7 +58,9 @@ def search_password():
         with open('this_is_not_a_password.json', 'r') as f:
             data = json.load(f)
             if website.get().casefold() in data:
-                messagebox.showinfo(message=f'{website.get()}:\n{data[website.get().casefold()]}')
+                searched_password = data[website.get().casefold()]['password']
+                searched_email = data[website.get().casefold()]['email']
+                messagebox.showinfo(message=f'{website.get()}:\nemail: {searched_email}\npassword: {searched_password}')
             else:
                 messagebox.showinfo(message=f'No password for {website.get()} found')
     except FileNotFoundError:
